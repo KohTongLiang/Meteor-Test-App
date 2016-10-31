@@ -1,0 +1,107 @@
+<head>
+  <title>Admin</title>
+  <!-- <link type="text/css" href="./main.css"> -->
+</head>
+
+<body>
+	<div id="render-target"></div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+<!-- Templates below are part of Blaze not reactJs -->
+
+<template name="home">
+    <h2 class="text-center">Welcome to the User Management Systems.</h2>
+</template>
+
+<template name="register">
+  	<h2 class="text-center">Register</h2>
+  	{{#if currentUser}}
+  		<p class="text-center">You must logout to register an account, otherwise, use add admin feature.</p>
+  	{{else}}
+  	<form class="form form-horizontal col-md-6 col-md-offset-3">
+  		<div class="form-group">
+	  		Email: <input class="form-control" type="email" name="registerEmail">
+  		</div>
+	        Password: <div class="form-group"> <input class="form-control" type="password" name="registerPassword">
+        </div>
+	        <div class="form-group"> <input class="form-control" type="submit" value="Register">
+        </div>
+
+        <p>Already have an account, click <a href="/login">here</a> to login.</p>
+  	</form>
+  	{{/if}}
+</template>
+
+<template name="login">
+  	<h2 class="text-center">Login</h2>
+  	{{#if currentUser}}
+  		<p class="text-center">You are already logged in.</p>
+  	{{else}}
+  	<form class="form form-horizontal col-md-6 col-md-offset-3">
+        <div class="form-group">
+	        Email <input class="form-control" type="email" name="loginEmail">
+        </div>
+        <div class="form-group">
+	        Password: <input class="form-control" type="password" name="loginPassword">
+        </div>
+        <div class="form-group"> 
+	        <input class="form-control" type="submit" value="Login">
+        </div>
+
+        <p>Don't have an account, click <a href="/register">here</a> to register.</p>
+    </form>
+    {{/if}}
+</template>
+
+<template name="dashboard">
+	<div class="text-center">
+	    <p>You're logged in.</p>
+		<p><a href="#" class="logout">Logout</a></p>
+    </div>
+</template>
+
+<template name="entry">
+	
+</template>
+
+<template name="main">
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">User Mangement System</a>
+	    </div>
+
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+	      <ul class="nav navbar-nav">
+	      {{#if currentUser}}
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><a href="#">Admin Mangement</a></li>
+	            <li class="divider"></li>
+	            <li><a href="#">Entry Management</a></li>
+	          </ul>
+	        </li>
+	       {{/if}}
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	      {{#if currentUser}}
+		      <li><a href="" class="logout">Logout</a></li>
+	      {{else}}
+	        <li><a href="{{pathFor route='register'}}">Register</a></li>
+	        <li><a href="{{pathFor route='login'}}">Login</a></li>
+	      {{/if}}
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+
+	{{> yield}}
+</template>
